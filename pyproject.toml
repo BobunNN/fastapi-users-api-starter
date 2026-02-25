@@ -1,0 +1,19 @@
+[project]
+name = "fastapi-docker-template"
+version = "0.1.0"
+description = "Fastapi app containerized quick start up"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi[standard]>=0.133.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+]
+
+[project]
+authors = [
+  {name = "Nhan Nguyen"},
+]
