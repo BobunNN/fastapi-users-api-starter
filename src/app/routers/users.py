@@ -38,8 +38,8 @@ def read_user_me(current_user: CurrentUser) -> Any:
 
 
 @router.get("/v1/users/{email}", dependencies=[Depends(get_current_active_superuser)])
-def get_user(session: SessionDep, email: EmailStr):
-    return user_service.get_user(session=session, user_id=None, email=email)
+def fetch_user(session: SessionDep, email: EmailStr):
+    return user_service.get_user_by_email(session=session, email=email)
 
 
 @router.post("/v1/users", dependencies=[Depends(get_current_active_superuser)])

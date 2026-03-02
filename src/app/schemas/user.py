@@ -31,7 +31,8 @@ class UserUpdate(UserBase):
 
 
 class UserUpdateMe(SQLModel):
-    full_name: str | None = Field(default=None, max_length=255)
+    first_name: str = Field(max_length=30)
+    last_name: str = Field(max_length=30)
     email: EmailStr | None = Field(default=None, max_length=255)
 
 
@@ -43,7 +44,6 @@ class UpdatePassword(SQLModel):
 class UserRegister(SQLModel):
     email: EmailStr = Field(max_length=30)
     password: str = Field(min_length=8, max_length=128)
-    full_name: str | None = Field(default=None, max_length=255)
     first_name: str = Field(max_length=30)
     last_name: str = Field(max_length=30)
 

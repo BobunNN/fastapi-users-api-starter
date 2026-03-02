@@ -48,8 +48,14 @@ def authenticate_user(*, session: Session, email: str, password: str) -> User | 
     if not user:
         verify_password(password, DUMMY_HASH)
         return False
-    if not verify_password(password, user.hashed_password):
+    verified, updated_password_hash = verify_password(password, user.hashed_password)
+    if not verified:
         return False
+    if updated_password_hash:
+        user.hashed_password = updated_password_hash
+        session.add(user)
+        session.commit()
+        session.refresh(user)
     return user
 
 
