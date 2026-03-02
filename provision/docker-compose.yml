@@ -6,4 +6,9 @@ services:
       dockerfile: provision/Dockerfile.dev
     restart: always
     ports:
-      - 8080:8080
+      - 8081:8081
+    volumes:
+      - ../app.db:/app/app.db
+      - ../src:/app/src
+    env_file:
+      - ../.env

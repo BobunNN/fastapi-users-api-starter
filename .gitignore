@@ -1,2 +1,9 @@
 **/.venv/
+<<<<<<< HEAD
 **/.DS_Store
+=======
+**/.DS_Store
+**/.ruff_cache
+.env
+**/__pycache__/
+>>>>>>> dev
