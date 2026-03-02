@@ -1,7 +1,7 @@
 import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware  # noqa
-
+from src.app.routers import users, login
 
 # Basic logging configuration
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
@@ -18,7 +18,13 @@ app = FastAPI()
 # )
 
 
-@app.get("/")
+app.include_router(users.router)
+app.include_router(login.router)
+
+
+@app.get(
+    "/",
+)
 def root() -> str:
     logging.info("Health check endpoint called.")
     return "ok"
