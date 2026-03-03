@@ -1,6 +1,5 @@
 from functools import lru_cache
 import secrets
-from typing import Generator
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
