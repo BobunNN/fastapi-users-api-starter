@@ -24,6 +24,9 @@ async def read_users(
     limit: int = 100,
     offset: int = 0,
 ):
+    """
+    Retrieve a list of users with pagination. Requires superuser privileges.
+    """
     return user_service.get_all_users(session=session, limit=limit, offset=offset)
 
 
@@ -39,11 +42,17 @@ def read_user_me(current_user: CurrentUser) -> Any:
 
 @router.get("/v1/users/{email}", dependencies=[Depends(get_current_active_superuser)])
 def fetch_user(session: SessionDep, email: EmailStr):
+    """
+    Retrieve a user by email. Requires superuser privileges.
+    """
     return user_service.get_user_by_email(session=session, email=email)
 
 
 @router.post("/v1/users", dependencies=[Depends(get_current_active_superuser)])
 def create_user(session: SessionDep, user_create: UserCreate):
+    """
+    Create a new user. Requires superuser privileges.
+    """
     return user_service.create_user(session=session, user_create=user_create)
 
 
@@ -61,6 +70,9 @@ def update_user_me(
 
 @router.patch("/v1/users/{email}", dependencies=[Depends(get_current_active_superuser)])
 def patch_user(session: SessionDep, user_patch: UserUpdate, email: EmailStr):
+    """
+    Update a user by email. Requires superuser privileges.
+    """
     return user_service.patch_user(session=session, user_patch=user_patch, email=email)
 
 
@@ -79,6 +91,9 @@ def delete_user_me(session: SessionDep, current_user: CurrentUser) -> Any:
     "/v1/users/{email}", dependencies=[Depends(get_current_active_superuser)]
 )
 def delete_user(session: SessionDep, email: EmailStr, current_user: CurrentUser):
+    """
+    Delete a user by email. Requires superuser privileges.
+    """
     return user_service.delete_user(
         session=session, email=email, current_user=current_user
     )
