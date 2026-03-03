@@ -8,7 +8,7 @@ from pydantic import ValidationError
 from sqlmodel import create_engine, Session
 
 from src.app.core.security import ALGORITHM
-from src.app.config import settings
+from src.app.config import Settings, get_settings
 from src.app.schemas.user import TokenPayload, User
 
 
@@ -27,9 +27,10 @@ def get_db() -> Generator[Session, None, None]:
 
 TokenDep = Annotated[str, Depends(oauth2_scheme)]
 SessionDep = Annotated[Session, Depends(get_db)]
+SettingsDep = Annotated[Settings, Depends(get_settings)]
 
 
-async def get_current_user(session: SessionDep, token: TokenDep) -> User:
+async def get_current_user(session: SessionDep, token: TokenDep, settings: SettingsDep) -> User:
     try:
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[ALGORITHM])
         token_data = TokenPayload(**payload)
