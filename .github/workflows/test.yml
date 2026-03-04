@@ -1,4 +1,4 @@
-name: CI
+name: Tests
 
 on:
   pull_request:
@@ -6,18 +6,7 @@ on:
       - main
       - staging
 
-
 jobs:
-  Code-quality-check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-
-      - uses: astral-sh/ruff-action@v3
-        name: Lint with ruff
-        with:
-            src: "./src"
-  
   Tests:
     runs-on: ubuntu-latest
     steps:
