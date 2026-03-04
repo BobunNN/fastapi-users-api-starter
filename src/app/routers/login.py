@@ -14,7 +14,7 @@ from src.app.schemas.user import Token
 router = APIRouter(tags=["login"])
 
 
-@router.post("/token")
+@router.post("/v1/login/token")
 async def login_for_access_token(
     session: SessionDep,
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
