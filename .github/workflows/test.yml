@@ -15,10 +15,6 @@ jobs:
       - name: Install uv with all available options
         uses: astral-sh/setup-uv@v7
     
-      - name: Sync dependencies
+      - name: Sync dependencies and run tests
         run: |
-          uv sync
-    
-      - name: Run tests
-        run: |
-          pytest tests/
+          uv sync && uv run pytest tests/
