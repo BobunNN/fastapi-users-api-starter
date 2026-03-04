@@ -62,3 +62,30 @@ def test_delete_user(session: Session):
     crud_users.delete_user(session=session, email="bob@example.com")
     deleted = crud_users.get_user_by_email(session=session, email="bob@example.com")
     assert deleted is None
+
+
+def test_authenticate_user(session: Session):
+    user_create = UserCreate(
+        first_name="Alice",
+        last_name="Smith",
+        email="alice@example.com",
+        password="securepassword",
+        is_superuser=False,
+    )
+    crud_users.create_user(session=session, user_create=user_create)
+
+    wrong_pwd = "wrong_pwd"
+    password = "securepassword"
+
+    assert (
+        crud_users.authenticate_user(
+            session=session, email="alice@example.com", password=wrong_pwd
+        )
+        is False
+    )
+    authd_user = crud_users.authenticate_user(
+        session=session, email="alice@example.com", password=password
+    )
+    assert authd_user.id is not None
+    assert authd_user.email == "alice@example.com"
+    assert authd_user.hashed_password != "securepassword"
