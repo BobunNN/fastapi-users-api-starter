@@ -53,13 +53,6 @@ def update_password_me(
     session.commit()
 
 
-def delete_me(session: Session, current_user: User):
-    if current_user.is_superuser:
-        raise SuperUserSelfDeleteForbidden
-    session.delete(current_user)
-    session.commit()
-
-
 def get_all_users(session: Session, offset: int, limit: int) -> list[User]:
     return crud_users.get_all_users(session=session, offset=offset, limit=limit)
 

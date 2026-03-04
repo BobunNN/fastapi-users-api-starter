@@ -1,3 +1,4 @@
+from functools import lru_cache
 import secrets
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -19,4 +20,6 @@ class Settings(BaseSettings):
     FIRST_SUPERUSER_LASTNAME: str
 
 
-settings = Settings()
+@lru_cache
+def get_settings() -> Settings:
+    return Settings()

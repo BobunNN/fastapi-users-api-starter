@@ -4,21 +4,21 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from datetime import timedelta
 
-from src.app.config import settings
 
 from src.app.core.users import crud_users
 from src.app.core.security import create_access_token
-from src.app.dependencies import SessionDep
+from src.app.dependencies import SessionDep, SettingsDep
 from src.app.schemas.user import Token
 
 
 router = APIRouter(tags=["login"])
 
 
-@router.post("/token")
+@router.post("/v1/login/token")
 async def login_for_access_token(
     session: SessionDep,
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
+    settings: SettingsDep,
 ) -> Token:
     user = crud_users.authenticate_user(
         session=session, email=form_data.username, password=form_data.password

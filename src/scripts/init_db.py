@@ -3,7 +3,7 @@ import logging
 from sqlmodel import Session, create_engine, select
 
 from src.app.core.users import crud_users
-from src.app.config import settings
+from src.app.config import get_settings
 from src.app.schemas.user import User, UserCreate
 
 logger = logging.getLogger(__name__)
@@ -27,7 +27,7 @@ def init_db(session: Session) -> None:
 
     # This works because the models are already imported and registered from app.models
     # SQLModel.metadata.create_all(engine)
-
+    settings = get_settings()
     user = session.exec(
         select(User).where(User.email == settings.FIRST_SUPERUSER)
     ).first()
