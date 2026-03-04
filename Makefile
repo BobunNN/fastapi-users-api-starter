@@ -4,7 +4,7 @@ dev-build:
 
 .PHONY: dev-start
 dev-start:
-	docker compose -f provision/docker-compose.yml up --remove-orphans
+	docker compose -f provision/docker-compose.yml up
 
 .PHONY: dev-stop
 dev-stop:
